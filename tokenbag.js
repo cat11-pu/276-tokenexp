@@ -1,8 +1,9 @@
-// tokenbag.js：到期判定与增删（基线：一律说还没到期）
+// tokenbag.js：到期判定与增删
 export function isExpired(record, now) {
-  return false;
+  return record[1] <= now;
 }
 
 export function dropToken(table, token) {
+  delete table[token];
   return table;
 }
