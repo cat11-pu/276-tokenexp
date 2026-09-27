@@ -1,8 +1,12 @@
-// tokenbag.js：到期判定与增删（基线：一律说还没到期）
+// tokenbag.js：到期判定与增删
 export function isExpired(record, now) {
-  return false;
+  if (!record) return false;
+  const expiresAt = Array.isArray(record) ? record[1] : record.expires_at;
+  return typeof expiresAt === "number" && expiresAt <= now;
 }
 
 export function dropToken(table, token) {
-  return table;
+  const next = Object.assign({}, table);
+  delete next[token];
+  return next;
 }
